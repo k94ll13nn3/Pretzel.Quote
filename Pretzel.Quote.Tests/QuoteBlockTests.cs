@@ -11,18 +11,19 @@ namespace Pretzel.Quote.Tests
         public void TestGoodPatterns()
         {
             Template.RegisterTag<QuoteBlock>("quote");
-
             Template templateOk1 = Template.Parse("{% quote %}{% endquote %}");
             Template templateOk2 = Template.Parse("{% quote %}content{% endquote %}");
             Template templateOk3 = Template.Parse("{% quote author %}content{% endquote %}");
             Template templateOk4 = Template.Parse("{% quote author, source%}content{% endquote %}");
             Template templateOk5 = Template.Parse("{% quote \"author in quote\", source%}content{% endquote %}");
+            Template templateOk6 = Template.Parse("{% quote \"author in quote\", source in \"long\" [text](link) %}content{% endquote %}");
 
             Assert.AreEqual("<blockquote><p></p></blockquote>", templateOk1.Render());
             Assert.AreEqual("<blockquote><p>content</p></blockquote>", templateOk2.Render());
             Assert.AreEqual("<blockquote><p>content</p><footer>&mdash; <strong>author</strong></footer></blockquote>", templateOk3.Render());
             Assert.AreEqual("<blockquote><p>content</p><footer>&mdash; <strong>author</strong>, <cite>source</cite></footer></blockquote>", templateOk4.Render());
             Assert.AreEqual("<blockquote><p>content</p><footer>&mdash; <strong>author in quote</strong>, <cite>source</cite></footer></blockquote>", templateOk5.Render());
+            Assert.AreEqual("<blockquote><p>content</p><footer>&mdash; <strong>author in quote</strong>, <cite>source in \"long\" [text](link)</cite></footer></blockquote>", templateOk6.Render());
         }
 
         [Test]
@@ -46,7 +47,7 @@ namespace Pretzel.Quote.Tests
 
             Assert.Throws<DotLiquid.Exceptions.SyntaxException>(() => Template.Parse("{% quote %}"));
             Assert.Throws<DotLiquid.Exceptions.SyntaxException>(() => Template.Parse("{% quote %}{% endqoute %}"));
-            Assert.Throws<ArgumentException>(() => Template.Parse("{% quote author, source, bad %}content{% endquote %}"));
+            Assert.Throws<ArgumentException>(() => Template.Parse("{% quote author, %}{% endquote %}"));
         }
     }
 }

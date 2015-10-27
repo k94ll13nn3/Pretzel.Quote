@@ -11,7 +11,9 @@ Quote string
 {% endquote %}
 ```
 
-For this first version, links are not supported as source.
+The source is EVERYTHING after the comma.
+
+**Warning** : Put the author within quotes if it contains a ','.
 
 ### Installation
 

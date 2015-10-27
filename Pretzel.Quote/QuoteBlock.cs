@@ -33,7 +33,7 @@ namespace Pretzel.Quote
                 string wordPattern = @"[\w'\s\-]+";
                 string wordPatternExt = @"""[\w'\s\-,]+""";
 
-                var regex = new Regex($"^(?:({wordPatternExt}|{wordPattern}))(?:,\\s({wordPatternExt}|{wordPattern}))?$");
+                var regex = new Regex($"^(?:({wordPatternExt}|{wordPattern}))(?:,\\s(.+))?$");
                 var match = regex.Match(markup.Trim());
                 if (match.Success)
                 {
@@ -43,7 +43,7 @@ namespace Pretzel.Quote
                     author = $"<strong>{match.Groups[1].Value.Replace("\"", string.Empty)}</strong>";
                     if (match.Groups[2].Success)
                     {
-                        source = $", <cite>{match.Groups[2].Value.Replace("\"", string.Empty)}</cite>";
+                        source = $", <cite>{match.Groups[2].Value}</cite>";
                     }
 
                     this.htmlAuthor = $"<footer>&mdash; {author}{source}</footer>";
