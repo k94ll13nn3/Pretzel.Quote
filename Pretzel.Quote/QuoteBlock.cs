@@ -1,27 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Text.RegularExpressions;
 using DotLiquid;
 using Pretzel.Logic.Extensibility;
 
 namespace Pretzel.Quote
 {
-    /// <summary>
-    /// The quote block.
-    /// </summary>
+    [Export(typeof(ITag))]
     public class QuoteBlock : Block, ITag
     {
-        /// <summary>
-        /// The author of the quote.
-        /// </summary>
         private string htmlAuthor = string.Empty;
 
-        /// <summary>
-        /// Overrides the tag name.
-        /// </summary>
         public new string Name => "Quote";
 
-        /// <inheritdoc/>
         public override void Initialize(string tagName, string markup, List<string> tokens)
         {
             base.Initialize(tagName, markup, tokens);
@@ -30,8 +22,8 @@ namespace Pretzel.Quote
             {
                 // Maybe some characters are missing.
                 // Links are not supported.
-                string wordPattern = @"[\w'\s\-]+";
-                string wordPatternExt = @"""[\w'\s\-,]+""";
+                const string wordPattern = @"[\w'\s\-]+";
+                const string wordPatternExt = @"""[\w'\s\-,]+""";
 
                 var regex = new Regex($"^(?:({wordPatternExt}|{wordPattern}))(?:,\\s(.+))?$");
                 var match = regex.Match(markup.Trim());
@@ -55,7 +47,6 @@ namespace Pretzel.Quote
             }
         }
 
-        /// <inheritdoc/>
         public override void Render(Context context, System.IO.TextWriter result)
         {
             result.Write("<blockquote>");
