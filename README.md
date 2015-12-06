@@ -17,4 +17,4 @@ The source is EVERYTHING after the comma.
 
 ### Installation
 
-Compile the solution `Pretzel.Quote.sln` and copy `Pretzel.Quote.dll` to the `_plugins` folder at the root of your site folder (VS2015 needed).
+Download the latest [release](https://github.com/k94ll13nn3/Pretzel.Quote/releases) and copy `Pretzel.Quote.dll` to the `_plugins` folder at the root of your site folder.
