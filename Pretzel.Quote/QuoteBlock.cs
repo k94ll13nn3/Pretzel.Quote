@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Pretzel.Quote plugin
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Text.RegularExpressions;
